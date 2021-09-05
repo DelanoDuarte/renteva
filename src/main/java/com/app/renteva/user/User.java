@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "user")
@@ -35,10 +36,21 @@ public abstract class User {
     Long id;
 
     String fullName;
+
+    @NotNull
     String firstName;
+    @NotNull
     String lastName;
+    @NotNull
     String password;
+
+    @NotNull
+    String email;
 
     @Builder.Default
     Boolean active = Boolean.TRUE;
+
+    public String getFullName() {
+        return this.firstName.concat(" ").concat(this.lastName);
+    }
 }
