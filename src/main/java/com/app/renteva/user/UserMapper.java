@@ -16,7 +16,5 @@ public interface UserMapper {
 
     Renter toRenter(NewUserResource newUserResource);
 
-    UserCreatedResource toUserCreatedResource(Owner owner);
-
     UserCreatedResource toUserCreatedResource(User user);
 }

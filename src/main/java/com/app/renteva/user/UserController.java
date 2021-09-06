@@ -3,6 +3,7 @@ package com.app.renteva.user;
 import com.app.renteva.user.exceptions.UserNotFoundException;
 import com.app.renteva.user.owner.Owner;
 import com.app.renteva.user.owner.OwnerRepository;
+import com.app.renteva.user.renter.Renter;
 import com.app.renteva.user.renter.RenterRepository;
 import com.app.renteva.user.resource.NewUserResource;
 import com.app.renteva.user.resource.UserCreatedResource;
@@ -25,6 +26,7 @@ import java.util.Optional;
 public class UserController implements UserApi {
 
     UserRepository userRepository;
+
     OwnerRepository ownerRepository;
     RenterRepository renterRepository;
 
@@ -40,7 +42,12 @@ public class UserController implements UserApi {
 
     @Override
     public ResponseEntity<UserCreatedResource> createRenter(@Valid NewUserResource newUserResource) {
-        return null;
+        Renter renterRequest = UserMapper.INSTANCE.toRenter(newUserResource);
+        Optional<Renter> renter = Optional.of(renterRepository.save(renterRequest));
+        return renter
+                .map(UserMapper.INSTANCE::toUserCreatedResource)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
     }
 
     @Override

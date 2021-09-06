@@ -1,6 +1,7 @@
 package com.app.renteva.place;
 
 import com.app.renteva.place.resource.NewPlaceResource;
+import com.app.renteva.shared.exceptions.ResourceNotFoundException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -24,6 +25,13 @@ public class PlaceController implements PlaceApi {
     @Override
     public List<Place> all() {
         return placeRepository.findAll();
+    }
+
+    @Override
+    public ResponseEntity<Place> getById(Long id) throws ResourceNotFoundException {
+        Place place = placeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("Place not found with given id %s", id)));
+        return ResponseEntity.ok(place);
     }
 
     @Override
