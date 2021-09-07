@@ -40,6 +40,7 @@ public class Place {
     Long latitude;
     Integer bedrooms;
     Integer bathrooms;
+    Integer buildingYear;
 
     // relationships
     @ManyToOne

@@ -25,4 +25,7 @@ public class NewPlaceResource {
 
     @NotNull
     Integer bathrooms;
+
+    @NotNull
+    Integer buildingYear;
 }

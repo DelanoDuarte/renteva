@@ -1,6 +1,7 @@
 package com.app.renteva.offer.resource;
 
 import com.app.renteva.place.resource.PlaceResource;
+import com.app.renteva.user.resource.UserResource;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,4 +18,5 @@ public class RentOfferListResource {
     BigDecimal offerAmount;
     String comments;
     PlaceResource place;
+    UserResource renter;
 }
