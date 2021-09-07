@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
-public class RentOfferServiceImpl implements RentOfferService {
+class RentOfferServiceImpl implements RentOfferService {
 
     RentOfferRepository rentOfferRepository;
 

@@ -1,4 +1,4 @@
 package com.app.renteva.user;
 
-public class UserServiceImpl implements UserService {
+class UserServiceImpl implements UserService {
 }
