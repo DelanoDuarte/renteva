@@ -14,5 +14,5 @@ public interface PlaceMapper {
     @Mapping(target = "id", ignore = true)
     Place toPlace(NewPlaceResource placeResource);
 
-    PlaceResource toPlaceListResource(Place place);
+    PlaceResource toPlaceResource(Place place);
 }

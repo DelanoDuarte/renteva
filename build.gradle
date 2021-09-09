@@ -33,6 +33,11 @@ dependencies {
 	// mapstruct
 	implementation group: 'org.mapstruct', name: 'mapstruct', version: '1.4.2.Final'
 	annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.4.2.Final'
+
+	// swagger
+	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
+
 }
 
 test {
