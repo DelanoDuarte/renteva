@@ -15,11 +15,11 @@ Register a new user as **Owner** or **Renter**
 http://localhost:8090/user/owner
 
 #### Renter
-http://localhost:8090/user/renter
+**POST** http://localhost:8090/user/renter
 
 Then, authenticate with the email and password created.
 
-http://localhost:8090/user/sign-in
+**POST** http://localhost:8090/user/sign-in
 
 In case of you receive something like the response below, you're successfully 
 authenticated.

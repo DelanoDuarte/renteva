@@ -27,7 +27,7 @@ public interface UserService {
     String encodePassword(String password);
 
     /**
-     * Returns a hash of the password.
+     * Map User from SingleAuthenticatedUserResource with the given token
      */
     SingleAuthenticatedUserResource getAuthenticatedUserFromUser(User user, String token);
 }
