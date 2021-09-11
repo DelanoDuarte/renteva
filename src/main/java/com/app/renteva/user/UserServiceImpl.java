@@ -1,5 +1,6 @@
 package com.app.renteva.user;
 
+import com.app.renteva.user.resource.SingleAuthenticatedUserResource;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -53,8 +54,14 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> register() {
-        return Optional.empty();
+    public SingleAuthenticatedUserResource getAuthenticatedUserFromUser(User user, String token) {
+        return SingleAuthenticatedUserResource
+                .builder()
+                .email(user.getEmail())
+                .fullName(user.getFullName())
+                .id(user.getId())
+                .token(token)
+                .build();
     }
 
     @Override

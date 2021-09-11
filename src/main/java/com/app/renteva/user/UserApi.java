@@ -33,9 +33,6 @@ public interface UserApi {
     @PostMapping(value = "/sign-in", consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<SingleAuthenticatedUserResource> login(@RequestBody @Valid LoginResource loginResource);
 
-    @PostMapping(value = "/sign-up", consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<SingleAuthenticatedUserResource> register();
-
     @GetMapping("/me")
     ResponseEntity<UserResource> getCurrentUser();
 }

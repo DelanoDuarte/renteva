@@ -1,5 +1,7 @@
 package com.app.renteva.user;
 
+import com.app.renteva.user.resource.SingleAuthenticatedUserResource;
+
 import java.util.Optional;
 
 public interface UserService {
@@ -20,12 +22,12 @@ public interface UserService {
     Optional<User> authenticate(String email, String password);
 
     /**
-     * Register a new user.
+     * Returns a hash of the password.
      */
-    Optional<User> register();
+    String encodePassword(String password);
 
     /**
      * Returns a hash of the password.
      */
-    String encodePassword(String password);
+    SingleAuthenticatedUserResource getAuthenticatedUserFromUser(User user, String token);
 }

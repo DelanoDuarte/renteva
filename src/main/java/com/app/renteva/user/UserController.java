@@ -30,10 +30,10 @@ import static org.springframework.http.ResponseEntity.ok;
 public class UserController implements UserApi {
 
     UserRepository userRepository;
+    UserService userService;
 
     OwnerRepository ownerRepository;
     RenterRepository renterRepository;
-    UserService userService;
     JwtService jwtService;
 
     @Override
@@ -73,24 +73,10 @@ public class UserController implements UserApi {
     public ResponseEntity<SingleAuthenticatedUserResource> login(@Valid LoginResource loginResource) {
         return userService
                 .authenticate(loginResource.getLogin(), loginResource.getPassword())
-                .map(u -> ok(fromUser(u, jwtService.generateToken(u))))
+                .map(u -> ok(userService.getAuthenticatedUserFromUser(u, jwtService.generateToken(u))))
                 .orElseThrow(() -> new InvalidPasswordException("Can not authenticate - " + loginResource.getLogin()));
     }
 
-    private SingleAuthenticatedUserResource fromUser(User user, String token) {
-        return SingleAuthenticatedUserResource
-                .builder()
-                .email(user.getEmail())
-                .fullName(user.getFullName())
-                .id(user.getId())
-                .token(token)
-                .build();
-    }
-
-    @Override
-    public ResponseEntity<SingleAuthenticatedUserResource> register() {
-        return null;
-    }
 
     @Override
     public ResponseEntity<UserResource> getCurrentUser() {
