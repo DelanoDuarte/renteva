@@ -1,6 +1,5 @@
-package com.app.renteva.shared.config;
+package com.app.renteva.shared.token;
 
-import com.app.renteva.shared.token.JwtService;
 import com.app.renteva.user.User;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

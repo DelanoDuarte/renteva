@@ -1,5 +1,6 @@
 package com.app.renteva.shared.config;
 
+import com.app.renteva.shared.token.TokenFilter;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
