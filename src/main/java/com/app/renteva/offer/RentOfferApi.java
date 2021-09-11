@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 import java.util.List;
 
+@Api(tags = "RentOfferAPI")
 @RequestMapping(value = "/rent-offer", produces = MediaType.APPLICATION_JSON_VALUE)
 public interface RentOfferApi {
 

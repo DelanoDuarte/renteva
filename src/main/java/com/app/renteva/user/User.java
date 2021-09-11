@@ -3,10 +3,8 @@ package com.app.renteva.user;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
@@ -23,9 +21,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "user")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @SuperBuilder
-@EqualsAndHashCode
-@Getter
-@Setter
+@Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor

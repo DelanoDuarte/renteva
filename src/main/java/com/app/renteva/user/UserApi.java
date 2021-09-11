@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
-@Api("UserAPI")
+@Api(tags = "UserAPI")
 @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
 public interface UserApi {
 

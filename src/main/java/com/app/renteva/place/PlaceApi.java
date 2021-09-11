@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 import java.util.List;
 
-@Api("PlaceAPI")
+@Api(tags = "PlaceAPI")
 @RequestMapping(value = "/places", produces = MediaType.APPLICATION_JSON_VALUE)
 public interface PlaceApi {
 
