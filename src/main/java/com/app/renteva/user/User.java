@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -31,15 +33,22 @@ public abstract class User {
     @GeneratedValue(strategy = GenerationType.TABLE)
     Long id;
 
+    @Transient
     String fullName;
 
+    @Column
     @NotNull
     String firstName;
+
+    @Column
     @NotNull
     String lastName;
+
+    @Column
     @NotNull
     String password;
 
+    @Column(unique = true)
     @NotNull
     String email;
 

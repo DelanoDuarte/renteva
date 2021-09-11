@@ -1,8 +1,11 @@
 package com.app.renteva.user;
 
+import com.app.renteva.user.resource.LoginResource;
+import com.app.renteva.user.resource.SingleAuthenticatedUserResource;
 import com.app.renteva.user.exceptions.UserNotFoundException;
 import com.app.renteva.user.resource.NewUserResource;
 import com.app.renteva.user.resource.UserCreatedResource;
+import com.app.renteva.user.resource.UserResource;
 import io.swagger.annotations.Api;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,4 +29,13 @@ public interface UserApi {
 
     @GetMapping("/{id}")
     ResponseEntity<UserCreatedResource> getById(@PathVariable("id") Long id) throws UserNotFoundException;
+
+    @PostMapping(value = "/sign-in", consumes = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<SingleAuthenticatedUserResource> login(@RequestBody @Valid LoginResource loginResource);
+
+    @PostMapping(value = "/sign-up", consumes = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<SingleAuthenticatedUserResource> register();
+
+    @GetMapping("/me")
+    ResponseEntity<UserResource> getCurrentUser();
 }

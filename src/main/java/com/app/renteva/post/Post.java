@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,7 +33,9 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-    OffsetDateTime createdAt;
+    @Column
+    @Builder.Default
+    OffsetDateTime createdAt = OffsetDateTime.now();
 
     @NotNull
     @OneToOne
@@ -43,11 +46,14 @@ public class Post {
     @JoinColumn
     Owner creator;
 
+    @Column
     @NotNull
     String title;
 
+    @Column
     String comments;
 
+    @Column
     @Builder.Default
     Boolean active = Boolean.TRUE;
 }
