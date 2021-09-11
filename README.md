@@ -12,7 +12,7 @@ http://localhost:8090/swagger-ui/
 Register a new user as **Owner** or **Renter**
 
 #### Owner
-http://localhost:8090/user/owner
+**POST** http://localhost:8090/user/owner
 
 #### Renter
 **POST** http://localhost:8090/user/renter
