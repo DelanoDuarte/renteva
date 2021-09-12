@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@Api(tags = "PostApi")
+@Api(tags = "PostAPI")
 @RequestMapping(value = "/posts", produces = MediaType.APPLICATION_JSON_VALUE)
 public interface PostApi {
 

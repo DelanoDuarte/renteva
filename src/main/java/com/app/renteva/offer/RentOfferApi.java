@@ -28,4 +28,7 @@ public interface RentOfferApi {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<RentOfferCreatedResource> create(@RequestBody @Valid NewRentOfferResource newRentOfferResource);
+
+    @GetMapping("/place/{id}")
+    ResponseEntity<List<RentOfferListResource>> getByPlace(@PathVariable("id") Long placeId);
 }

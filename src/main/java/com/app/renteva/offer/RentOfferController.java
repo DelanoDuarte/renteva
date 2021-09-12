@@ -45,4 +45,13 @@ public class RentOfferController implements RentOfferApi {
         return rentOfferCreatedResource.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
     }
+
+    @Override
+    public ResponseEntity<List<RentOfferListResource>> getByPlace(Long placeId) {
+        List<RentOfferListResource> offersByPlace = rentOfferRepository.findByPlaceId(placeId)
+                .stream()
+                .map(RentOfferMapper.INSTANCE::toRentOfferListResource)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(offersByPlace);
+    }
 }
