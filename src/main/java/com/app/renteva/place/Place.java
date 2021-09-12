@@ -1,5 +1,6 @@
 package com.app.renteva.place;
 
+import com.app.renteva.address.Address;
 import com.app.renteva.user.owner.Owner;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +20,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "place")
@@ -34,16 +38,31 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @NotNull
+    @Column
     String name;
     String description;
     Long longitude;
     Long latitude;
+
+    @NotNull
+    @Column
     Integer bedrooms;
+
+    @NotNull
+    @Column
     Integer bathrooms;
+
+    @NotNull
+    @Column
     Integer buildingYear;
 
     // relationships
     @ManyToOne
     @JoinColumn
     Owner owner;
+
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn
+    Address address;
 }

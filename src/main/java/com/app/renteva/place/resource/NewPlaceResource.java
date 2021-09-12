@@ -1,9 +1,11 @@
 package com.app.renteva.place.resource;
 
+import com.app.renteva.address.resource.AddressResource;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -28,4 +30,8 @@ public class NewPlaceResource {
 
     @NotNull
     Integer buildingYear;
+
+    @NotNull
+    @Valid
+    AddressResource address;
 }

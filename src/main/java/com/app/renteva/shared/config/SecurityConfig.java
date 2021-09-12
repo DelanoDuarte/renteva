@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public static final String[] PROTECTED_ENDPOINTS = {
             "/places/**",
             "/posts/**",
-            "/rent-offer"
+            "/rent-offer/**"
     };
 
     TokenFilter tokenFilter;
@@ -73,6 +73,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 // Our private endpoints
                 .antMatchers(HttpMethod.GET, PROTECTED_ENDPOINTS)
+                .authenticated()
+                .antMatchers(HttpMethod.POST, PROTECTED_ENDPOINTS)
+                .authenticated()
+                .antMatchers(HttpMethod.PUT, PROTECTED_ENDPOINTS)
+                .authenticated()
+                .antMatchers(HttpMethod.DELETE, PROTECTED_ENDPOINTS)
                 .authenticated();
 
         http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);

@@ -2,6 +2,7 @@ package com.app.renteva.user;
 
 import com.app.renteva.shared.token.JwtService;
 import com.app.renteva.user.exceptions.InvalidPasswordException;
+import com.app.renteva.user.exceptions.UserNotAuthenticatedException;
 import com.app.renteva.user.exceptions.UserNotFoundException;
 import com.app.renteva.user.owner.Owner;
 import com.app.renteva.user.owner.OwnerRepository;
@@ -83,6 +84,6 @@ public class UserController implements UserApi {
         return userService.getCurrentUser()
                 .map(UserMapper.INSTANCE::toUserResource)
                 .map(ResponseEntity::ok)
-                .orElseThrow(() -> new RuntimeException(""));
+                .orElseThrow(() -> new UserNotAuthenticatedException("User not authenticated"));
     }
 }
