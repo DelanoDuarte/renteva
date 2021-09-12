@@ -1,10 +1,14 @@
 package com.app.renteva.user;
 
+import com.app.renteva.user.resource.NewUserResource;
 import com.app.renteva.user.resource.SingleAuthenticatedUserResource;
 
 import java.util.Optional;
 
 public interface UserService {
+
+
+    Optional<User> create(User user);
 
     /**
      * Returns current authenticated user.

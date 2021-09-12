@@ -4,9 +4,7 @@ import com.app.renteva.user.exceptions.InvalidPasswordException;
 import com.app.renteva.user.exceptions.UserNotAuthenticatedException;
 import com.app.renteva.user.exceptions.UserNotFoundException;
 import com.app.renteva.user.owner.Owner;
-import com.app.renteva.user.owner.OwnerRepository;
 import com.app.renteva.user.renter.Renter;
-import com.app.renteva.user.renter.RenterRepository;
 import com.app.renteva.user.resource.LoginResource;
 import com.app.renteva.user.resource.NewUserResource;
 import com.app.renteva.user.resource.SingleAuthenticatedUserResource;
@@ -30,14 +28,10 @@ public class UserController implements UserApi {
     UserRepository userRepository;
     UserService userService;
 
-    OwnerRepository ownerRepository;
-    RenterRepository renterRepository;
-
     @Override
     public ResponseEntity<UserCreatedResource> createOwner(@Valid NewUserResource newUserResource) {
         Owner ownerRequest = UserMapper.INSTANCE.toOwner(newUserResource);
-        ownerRequest.setPassword(userService.encodePassword(ownerRequest.getPassword()));
-        Optional<Owner> owner = Optional.of(ownerRepository.save(ownerRequest));
+        Optional<User> owner = userService.create(ownerRequest);
         return owner
                 .map(UserMapper.INSTANCE::toUserCreatedResource)
                 .map(ResponseEntity::ok)
@@ -47,8 +41,7 @@ public class UserController implements UserApi {
     @Override
     public ResponseEntity<UserCreatedResource> createRenter(@Valid NewUserResource newUserResource) {
         Renter renterRequest = UserMapper.INSTANCE.toRenter(newUserResource);
-        renterRequest.setPassword(userService.encodePassword(renterRequest.getPassword()));
-        Optional<Renter> renter = Optional.of(renterRepository.save(renterRequest));
+        Optional<User> renter = userService.create(renterRequest);
         return renter
                 .map(UserMapper.INSTANCE::toUserCreatedResource)
                 .map(ResponseEntity::ok)

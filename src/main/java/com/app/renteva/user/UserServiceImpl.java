@@ -1,6 +1,11 @@
 package com.app.renteva.user;
 
 import com.app.renteva.shared.token.JwtService;
+import com.app.renteva.user.exceptions.UserAlreadyExistsException;
+import com.app.renteva.user.owner.Owner;
+import com.app.renteva.user.owner.OwnerRepository;
+import com.app.renteva.user.renter.Renter;
+import com.app.renteva.user.renter.RenterRepository;
 import com.app.renteva.user.resource.SingleAuthenticatedUserResource;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -19,9 +24,28 @@ import java.util.Optional;
 class UserServiceImpl implements UserService {
 
     UserRepository userRepository;
+    OwnerRepository ownerRepository;
+    RenterRepository renterRepository;
+
     PasswordEncoder passwordEncoder;
 
     JwtService jwtService;
+
+    @Override
+    public Optional<User> create(User user) {
+
+        String email = user.getEmail();
+        userRepository.findByEmail(email)
+                .ifPresent(u -> {
+                    throw new UserAlreadyExistsException(String.format("The given user email %s already exists", email));
+                });
+
+        user.setPassword(this.encodePassword(user.getPassword()));
+        if (user instanceof Owner) {
+            return Optional.of(ownerRepository.save((Owner) user));
+        }
+        return Optional.of(renterRepository.save((Renter) user));
+    }
 
     @Override
     public Optional<User> getCurrentUser() {
