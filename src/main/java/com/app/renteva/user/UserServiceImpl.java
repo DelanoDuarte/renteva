@@ -1,5 +1,6 @@
 package com.app.renteva.user;
 
+import com.app.renteva.shared.token.JwtService;
 import com.app.renteva.user.resource.SingleAuthenticatedUserResource;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,8 @@ class UserServiceImpl implements UserService {
 
     UserRepository userRepository;
     PasswordEncoder passwordEncoder;
+
+    JwtService jwtService;
 
     @Override
     public Optional<User> getCurrentUser() {
@@ -54,13 +57,13 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    public SingleAuthenticatedUserResource getAuthenticatedUserFromUser(User user, String token) {
+    public SingleAuthenticatedUserResource getAuthenticatedUserFromUser(User user) {
         return SingleAuthenticatedUserResource
                 .builder()
                 .email(user.getEmail())
                 .fullName(user.getFullName())
                 .id(user.getId())
-                .token(token)
+                .token(jwtService.generateToken(user))
                 .build();
     }
 

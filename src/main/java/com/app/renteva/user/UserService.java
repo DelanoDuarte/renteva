@@ -29,5 +29,5 @@ public interface UserService {
     /**
      * Map User from SingleAuthenticatedUserResource with the given token
      */
-    SingleAuthenticatedUserResource getAuthenticatedUserFromUser(User user, String token);
+    SingleAuthenticatedUserResource getAuthenticatedUserFromUser(User user);
 }

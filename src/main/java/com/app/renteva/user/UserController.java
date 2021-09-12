@@ -1,6 +1,5 @@
 package com.app.renteva.user;
 
-import com.app.renteva.shared.token.JwtService;
 import com.app.renteva.user.exceptions.InvalidPasswordException;
 import com.app.renteva.user.exceptions.UserNotAuthenticatedException;
 import com.app.renteva.user.exceptions.UserNotFoundException;
@@ -23,8 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.Optional;
 
-import static org.springframework.http.ResponseEntity.ok;
-
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -35,7 +32,6 @@ public class UserController implements UserApi {
 
     OwnerRepository ownerRepository;
     RenterRepository renterRepository;
-    JwtService jwtService;
 
     @Override
     public ResponseEntity<UserCreatedResource> createOwner(@Valid NewUserResource newUserResource) {
@@ -74,7 +70,8 @@ public class UserController implements UserApi {
     public ResponseEntity<SingleAuthenticatedUserResource> login(@Valid LoginResource loginResource) {
         return userService
                 .authenticate(loginResource.getLogin(), loginResource.getPassword())
-                .map(u -> ok(userService.getAuthenticatedUserFromUser(u, jwtService.generateToken(u))))
+                .map(userService::getAuthenticatedUserFromUser)
+                .map(ResponseEntity::ok)
                 .orElseThrow(() -> new InvalidPasswordException("Can not authenticate - " + loginResource.getLogin()));
     }
 
