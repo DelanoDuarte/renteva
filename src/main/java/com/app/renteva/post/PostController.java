@@ -1,6 +1,5 @@
 package com.app.renteva.post;
 
-import com.app.renteva.place.PlaceMapper;
 import com.app.renteva.post.resource.NewPostResource;
 import com.app.renteva.post.resource.PostResource;
 import lombok.AccessLevel;
