@@ -5,6 +5,7 @@ import com.app.renteva.place.PlaceMapper;
 import com.app.renteva.place.PlaceRepository;
 import com.app.renteva.post.resource.NewPostResource;
 import com.app.renteva.post.resource.PostResource;
+import com.app.renteva.user.UserMapper;
 import com.app.renteva.user.owner.Owner;
 import com.app.renteva.user.owner.OwnerRepository;
 import lombok.AccessLevel;
@@ -15,7 +16,7 @@ import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Mapper(componentModel = "spring", uses = {PlaceMapper.class})
+@Mapper(componentModel = "spring", uses = {PlaceMapper.class, UserMapper.class})
 public abstract class PostMapper {
 
     @Autowired
@@ -31,6 +32,7 @@ public abstract class PostMapper {
     @Mapping(source = "ownerId", target = "creator", qualifiedByName = "getOwner")
     abstract Post newPost(NewPostResource newPostResource);
 
+    @Mapping(source = "creator", target = "owner")
     abstract PostResource toResource(Post post);
 
     @Named("getPlace")
