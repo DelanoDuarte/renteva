@@ -1,6 +1,6 @@
 package com.app.renteva.post;
 
-import com.app.renteva.post.resource.NewPostResource;
+import com.app.renteva.post.resource.NewPostPlaceResource;
 import com.app.renteva.post.resource.PostResource;
 import io.swagger.annotations.Api;
 import org.springframework.http.MediaType;
@@ -20,5 +20,5 @@ public interface PostApi {
     List<PostResource> all();
 
     @PostMapping
-    ResponseEntity<PostResource> create(@RequestBody NewPostResource newPostResource);
+    ResponseEntity<PostResource> create(@RequestBody NewPostPlaceResource newPostPlaceResource);
 }

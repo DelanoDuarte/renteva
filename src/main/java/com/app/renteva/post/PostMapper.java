@@ -3,6 +3,7 @@ package com.app.renteva.post;
 import com.app.renteva.place.Place;
 import com.app.renteva.place.PlaceMapper;
 import com.app.renteva.place.PlaceRepository;
+import com.app.renteva.post.resource.NewPostPlaceResource;
 import com.app.renteva.post.resource.NewPostResource;
 import com.app.renteva.post.resource.PostResource;
 import com.app.renteva.user.UserMapper;
@@ -31,6 +32,8 @@ public abstract class PostMapper {
     @Mapping(source = "placeId", target = "place", qualifiedByName = "getPlace")
     @Mapping(source = "ownerId", target = "creator", qualifiedByName = "getOwner")
     abstract Post newPost(NewPostResource newPostResource);
+
+    abstract Post toPost(NewPostPlaceResource newPostPlaceResource);
 
     @Mapping(source = "creator", target = "owner")
     abstract PostResource toResource(Post post);

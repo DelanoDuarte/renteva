@@ -1,6 +1,6 @@
 package com.app.renteva.post;
 
-import com.app.renteva.post.resource.NewPostResource;
+import com.app.renteva.post.resource.NewPostPlaceResource;
 import com.app.renteva.post.resource.PostResource;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 class PostController implements PostApi {
 
     PostRepository postRepository;
-
+    PostService postService;
     PostMapper postMapper;
 
     @Override
@@ -28,9 +28,8 @@ class PostController implements PostApi {
     }
 
     @Override
-    public ResponseEntity<PostResource> create(NewPostResource newPostResource) {
-        Post post = postMapper.newPost(newPostResource);
-        Optional<Post> newPost = Optional.of(postRepository.save(post));
+    public ResponseEntity<PostResource> create(NewPostPlaceResource newPostPlaceResource) {
+        Optional<Post> newPost = Optional.of(postService.create(newPostPlaceResource));
         return newPost
                 .map(postMapper::toResource)
                 .map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
