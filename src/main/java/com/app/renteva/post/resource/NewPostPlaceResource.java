@@ -4,6 +4,7 @@ import com.app.renteva.place.resource.NewPlaceResource;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import javax.validation.Valid;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
+@NoArgsConstructor
 public class NewPostPlaceResource {
 
     @NotNull

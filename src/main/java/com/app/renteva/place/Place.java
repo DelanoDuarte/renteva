@@ -1,6 +1,7 @@
 package com.app.renteva.place;
 
 import com.app.renteva.address.Address;
+import com.app.renteva.place.photo.Photo;
 import com.app.renteva.user.owner.Owner;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -19,8 +20,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "place")
@@ -65,4 +70,14 @@ public class Place {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn
     Address address;
+
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    Set<Photo> photos;
+
+    public void addPhoto(Photo photo) {
+        if (Objects.isNull(getPhotos())) {
+            this.photos = new HashSet<>();
+        }
+        this.photos.add(photo);
+    }
 }

@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
@@ -17,4 +19,5 @@ public class PlaceResource {
     Long latitude;
     Integer bedrooms;
     Integer bathrooms;
+    List<PhotoResource> photos;
 }
