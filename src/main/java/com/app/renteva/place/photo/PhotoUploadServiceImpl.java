@@ -53,11 +53,7 @@ class PhotoUploadServiceImpl implements PhotoUploadService {
             if (!Files.exists(placeDirectory.resolve(file.getOriginalFilename())))
                 Files.copy(file.getInputStream(), placeDirectory.resolve(file.getOriginalFilename()));
 
-            Path storedPhoto = Paths.get(pathWithReference + File.separator + file.getOriginalFilename());
-            if (storedPhoto == null)
-                throw new RuntimeException("");
-
-            return storedPhoto.toString();
+            return Paths.get(pathWithReference + File.separator + file.getOriginalFilename()).toString();
         } catch (Exception e) {
             throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
         }

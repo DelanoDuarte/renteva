@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import java.util.Objects;
+
 @Mapper(componentModel = "spring", uses = AddressMapper.class)
 public interface PlaceMapper {
 
@@ -16,4 +18,10 @@ public interface PlaceMapper {
     Place toPlace(NewPlaceResource placeResource);
 
     PlaceResource toPlaceResource(Place place);
+
+    default String map(PlaceSequence placeSequence) {
+        if (Objects.nonNull(placeSequence))
+            return placeSequence.getCode();
+        return null;
+    }
 }

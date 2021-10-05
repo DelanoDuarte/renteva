@@ -15,6 +15,7 @@ public class PlaceResource {
     Long id;
     String name;
     String description;
+    String code;
     Long longitude;
     Long latitude;
     Integer bedrooms;
