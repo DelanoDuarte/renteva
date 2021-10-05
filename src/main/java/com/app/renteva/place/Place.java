@@ -15,6 +15,7 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,6 +29,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -43,9 +45,9 @@ class PlaceSequence {
             name = "place_seq",
             strategy = "com.app.renteva.shared.persistence.StringPrefixedSequenceIdGenerator",
             parameters = {
-                    @Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "50"),
+                    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "50"),
                     @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "P_"),
-                    @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d") })
+                    @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d")})
     private String code;
 }
 
@@ -99,6 +101,9 @@ public class Place {
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     Set<Photo> photos;
+
+    @NotNull
+    BigDecimal rent;
 
     public void addPhoto(Photo photo) {
         if (Objects.isNull(getPhotos())) {

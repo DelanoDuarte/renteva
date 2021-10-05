@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -20,5 +21,6 @@ public class PlaceResource {
     Long latitude;
     Integer bedrooms;
     Integer bathrooms;
+    BigDecimal rent;
     List<PhotoResource> photos;
 }

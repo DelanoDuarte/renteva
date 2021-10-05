@@ -6,8 +6,10 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -24,6 +26,10 @@ public class NewPlaceResource {
 
     @NotNull
     Integer bedrooms;
+
+    @Min(1)
+    @NotNull
+    BigDecimal rent;
 
     @NotNull
     Integer bathrooms;
