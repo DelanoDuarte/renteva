@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -37,11 +38,15 @@ class PostServiceImpl implements PostService {
         Post newPost = postMapper.toPost(newPostPlaceResource);
         Place place = newPost.getPlace();
 
-        photos.stream()
-                .map(photo -> new Photo(photo.getOriginalFilename(), photoUploadService.saveWithPlaceReference(photo, place.getName())))
-                .forEach(place::addPhoto);
-
         userService.getCurrentUser().ifPresent(user -> newPost.setCreator((Owner) user));
-        return postRepository.save(newPost);
+
+        Post post = Optional.of(postRepository.save(newPost)).orElseThrow(() -> new RuntimeException("Post could not be created."));
+        Place placeStored = Optional.ofNullable(post.getPlace()).orElseThrow(() -> new RuntimeException("Place could not be created"));
+
+        String code = placeStored.getCode().getCode();
+        photos.stream()
+                .map(photo -> new Photo(photo.getOriginalFilename(), photoUploadService.saveWithPlaceReference(photo, code)))
+                .forEach(place::addPhoto);
+        return post;
     }
 }
