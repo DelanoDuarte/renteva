@@ -22,7 +22,4 @@ public class NewRentOfferResource {
 
     @NotNull
     Long placeId;
-
-    @NotNull
-    Long renterId;
 }

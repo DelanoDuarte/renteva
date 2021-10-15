@@ -3,8 +3,8 @@ package com.app.renteva.offer;
 import com.app.renteva.offer.resource.NewRentOfferResource;
 import com.app.renteva.place.Place;
 import com.app.renteva.place.PlaceRepository;
+import com.app.renteva.user.UserService;
 import com.app.renteva.user.renter.Renter;
-import com.app.renteva.user.renter.RenterRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -16,9 +16,9 @@ import org.springframework.stereotype.Service;
 class RentOfferServiceImpl implements RentOfferService {
 
     RentOfferRepository rentOfferRepository;
-
     PlaceRepository placeRepository;
-    RenterRepository renterRepository;
+
+    UserService userService;
 
     @Override
     public RentOffer create(NewRentOfferResource newRentOfferResource) {
@@ -26,8 +26,8 @@ class RentOfferServiceImpl implements RentOfferService {
         Place place = placeRepository.findById(newRentOfferResource.getPlaceId())
                 .orElseThrow(() -> new IllegalArgumentException("Place not found"));
 
-        Renter renter = renterRepository.findById(newRentOfferResource.getRenterId())
-                .orElseThrow(() -> new IllegalArgumentException("Renter not found"));
+        Renter renter = (Renter) userService.getCurrentUser()
+                .orElseThrow(() -> new IllegalArgumentException("Renter not provided. Log in first"));
 
         RentOffer rentOffer = RentOfferMapper.INSTANCE.toRentOffer(newRentOfferResource);
         RentOffer offer = rentOffer.toBuilder()
