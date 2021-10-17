@@ -4,7 +4,6 @@ import com.app.renteva.place.Place;
 import com.app.renteva.place.PlaceMapper;
 import com.app.renteva.place.PlaceRepository;
 import com.app.renteva.post.resource.NewPostPlaceResource;
-import com.app.renteva.post.resource.NewPostResource;
 import com.app.renteva.post.resource.PostResource;
 import com.app.renteva.user.UserMapper;
 import com.app.renteva.user.owner.Owner;
@@ -25,13 +24,6 @@ public abstract class PostMapper {
 
     @Autowired
     PlaceRepository placeRepository;
-
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "active", ignore = true)
-    @Mapping(source = "placeId", target = "place", qualifiedByName = "getPlace")
-    @Mapping(source = "ownerId", target = "creator", qualifiedByName = "getOwner")
-    abstract Post newPost(NewPostResource newPostResource);
 
     abstract Post toPost(NewPostPlaceResource newPostPlaceResource);
 

@@ -10,6 +10,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -33,6 +34,7 @@ class PostServiceImpl implements PostService {
         return postRepository.save(newPost);
     }
 
+    @Transactional
     @Override
     public Post create(NewPostPlaceResource newPostPlaceResource, List<MultipartFile> photos) {
         Post newPost = postMapper.toPost(newPostPlaceResource);
@@ -41,7 +43,7 @@ class PostServiceImpl implements PostService {
         userService.getCurrentUser().ifPresent(user -> newPost.setCreator((Owner) user));
 
         Post post = Optional.of(postRepository.save(newPost)).orElseThrow(() -> new RuntimeException("Post could not be created."));
-        Place placeStored = Optional.ofNullable(post.getPlace()).orElseThrow(() -> new RuntimeException("Place could not be created"));
+        Place placeStored = Optional.ofNullable(place).orElseThrow(() -> new RuntimeException("Place could not be created"));
 
         String code = placeStored.getCode().getCode();
         photos.stream()
