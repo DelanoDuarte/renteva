@@ -50,12 +50,11 @@ class UserServiceImpl implements UserService {
     @Override
     public Optional<User> getCurrentUser() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null) {
-            return Optional.empty();
-        }
-        if (authentication.getPrincipal().equals("anonymousUser")) {
-            return Optional.empty();
-        }
+
+        if (authentication == null) return Optional.empty();
+
+        if (authentication.getPrincipal().equals("anonymousUser")) return Optional.empty();
+
         final var userDetails = (UserDetails) authentication.getPrincipal();
         return userRepository.findByEmail(userDetails.getUsername());
     }
