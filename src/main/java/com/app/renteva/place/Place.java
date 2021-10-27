@@ -15,6 +15,8 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -68,6 +70,9 @@ public class Place {
     @Column
     Integer buildingYear;
 
+    @NotNull
+    BigDecimal rent;
+
     // relationships
     @ManyToOne
     @JoinColumn
@@ -80,8 +85,12 @@ public class Place {
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     Set<Photo> photos;
 
-    @NotNull
-    BigDecimal rent;
+    @Enumerated(EnumType.ORDINAL)
+    PlaceType placeType;
+
+    @Builder.Default
+    @Enumerated(EnumType.ORDINAL)
+    PlaceStatus status = PlaceStatus.AVAILABLE;
 
     public void addPhoto(Photo photo) {
         if (Objects.isNull(getPhotos())) {
