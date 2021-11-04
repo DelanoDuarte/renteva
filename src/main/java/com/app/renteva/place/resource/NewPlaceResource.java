@@ -29,13 +29,21 @@ public class NewPlaceResource {
 
     @Min(1)
     @NotNull
-    BigDecimal rent;
+    BigDecimal price;
 
     @NotNull
     Integer bathrooms;
 
     @NotNull
     Integer buildingYear;
+
+    Integer floor;
+
+    Integer grossAreaSize;
+
+    Integer usefulAreaSize;
+
+    boolean parking;
 
     @NotNull
     @Valid

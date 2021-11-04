@@ -68,10 +68,26 @@ public class Place {
 
     @NotNull
     @Column
+    Integer floor;
+
+    @NotNull
+    @Column
+    Integer grossAreaSize;
+
+    @NotNull
+    @Column
+    Integer usefulAreaSize;
+
+    @NotNull
+    @Column
+    boolean parking;
+
+    @NotNull
+    @Column
     Integer buildingYear;
 
     @NotNull
-    BigDecimal rent;
+    BigDecimal price;
 
     // relationships
     @ManyToOne

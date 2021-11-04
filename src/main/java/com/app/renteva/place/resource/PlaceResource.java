@@ -21,6 +21,10 @@ public class PlaceResource {
     Long latitude;
     Integer bedrooms;
     Integer bathrooms;
-    BigDecimal rent;
+    BigDecimal price;
+    Integer floor;
+    Integer grossAreaSize;
+    Integer usefulAreaSize;
+    boolean parking;
     List<PhotoResource> photos;
 }
