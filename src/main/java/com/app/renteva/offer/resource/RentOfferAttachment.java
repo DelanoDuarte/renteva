@@ -1,25 +1,24 @@
 package com.app.renteva.offer.resource;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
+import java.util.List;
 
 @Data
-@NoArgsConstructor
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class NewRentOfferResource {
+public class RentOfferAttachment {
 
     @NotNull
-    @Min(0)
-    BigDecimal offerAmount;
-
-    String comments;
+    Long rentOfferId;
 
     @NotNull
-    Long placeId;
+    Long offerDemandId;
+
+    List<MultipartFile> attachments;
 }

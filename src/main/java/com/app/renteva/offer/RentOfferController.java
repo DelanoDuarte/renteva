@@ -1,6 +1,7 @@
 package com.app.renteva.offer;
 
 import com.app.renteva.offer.resource.NewRentOfferResource;
+import com.app.renteva.offer.resource.RentOfferAttachment;
 import com.app.renteva.offer.resource.RentOfferCreatedResource;
 import com.app.renteva.offer.resource.RentOfferListResource;
 import com.app.renteva.shared.exceptions.ResourceNotFoundException;
@@ -10,6 +11,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -53,5 +55,19 @@ public class RentOfferController implements RentOfferApi {
                 .map(RentOfferMapper.INSTANCE::toRentOfferListResource)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(offersByPlace);
+    }
+
+    @Override
+    public ResponseEntity<RentOfferListResource> attachOfferDocument(Long rentOfferId, Long demandId, List<MultipartFile> attachments) {
+        RentOfferAttachment rentOfferAttachment = RentOfferAttachment.builder()
+                .rentOfferId(rentOfferId)
+                .offerDemandId(demandId)
+                .attachments(attachments)
+                .build();
+
+        final Optional<RentOffer> rentOffer = Optional.ofNullable(rentOfferService.attachOfferAttachment(rentOfferAttachment));
+        return rentOffer.map(RentOfferMapper.INSTANCE::toRentOfferListResource)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
     }
 }

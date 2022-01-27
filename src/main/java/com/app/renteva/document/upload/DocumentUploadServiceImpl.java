@@ -9,6 +9,7 @@ import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -21,7 +22,8 @@ import java.util.stream.Stream;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class DocumentUploadServiceImpl implements DocumentUploadService {
 
-    Path root = Paths.get("uploads/places/offers/attachments");
+    Path placeRoot = Paths.get("uploads/places");
+    Path root = Paths.get("offers/attachments");
 
     @Override
     public void init() {
@@ -36,6 +38,25 @@ public class DocumentUploadServiceImpl implements DocumentUploadService {
     public void save(@NotNull MultipartFile file) {
         try {
             Files.copy(file.getInputStream(), this.root.resolve(Objects.requireNonNull(file.getOriginalFilename())));
+        } catch (Exception e) {
+            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public String saveAttachment(MultipartFile file, String placeCode) {
+        try {
+            final Path placeFolder = placeRoot.resolve(placeCode);
+            final Path attachmentsFolder = placeFolder.resolve(root);
+
+            if (!Files.exists(attachmentsFolder))
+                Files.createDirectories(attachmentsFolder);
+
+            if (!Files.exists(attachmentsFolder.resolve(file.getOriginalFilename())))
+                Files.copy(file.getInputStream(), attachmentsFolder.resolve(Objects.requireNonNull(file.getOriginalFilename())));
+
+            final String pathReference = placeFolder + File.separator + root;
+            return Paths.get(pathReference + File.separator + file.getOriginalFilename()).toString();
         } catch (Exception e) {
             throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
         }

@@ -1,6 +1,8 @@
 package com.app.renteva.offer;
 
+import com.app.renteva.document.DocumentOfferAttachmentService;
 import com.app.renteva.offer.resource.NewRentOfferResource;
+import com.app.renteva.offer.resource.RentOfferAttachment;
 import com.app.renteva.place.Place;
 import com.app.renteva.place.PlaceRepository;
 import com.app.renteva.user.User;
@@ -10,6 +12,9 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -20,14 +25,15 @@ class RentOfferServiceImpl implements RentOfferService {
     PlaceRepository placeRepository;
 
     UserService userService;
+    DocumentOfferAttachmentService offerAttachmentService;
 
     @Override
     public RentOffer create(NewRentOfferResource newRentOfferResource) {
 
-        Place place = placeRepository.findById(newRentOfferResource.getPlaceId())
+        final Place place = placeRepository.findById(newRentOfferResource.getPlaceId())
                 .orElseThrow(() -> new IllegalArgumentException("Place not found"));
 
-        User user = userService.getCurrentUser()
+        final User user = userService.getCurrentUser()
                 .orElseThrow(() -> new IllegalArgumentException("User not found. Log in first"));
 
         if (!(user instanceof Renter))
@@ -40,5 +46,21 @@ class RentOfferServiceImpl implements RentOfferService {
                 .build();
 
         return rentOfferRepository.save(offer);
+    }
+
+    @Override
+    public RentOffer attachOfferAttachment(RentOfferAttachment rentOfferAttachment) {
+
+        RentOffer rentOffer = rentOfferRepository.findById(rentOfferAttachment.getRentOfferId())
+                .orElseThrow(() -> new IllegalArgumentException("Rent Offer not found"));
+
+        final Place place = rentOffer.getPlace();
+
+        final List<MultipartFile> attachments = rentOfferAttachment.getAttachments();
+
+        offerAttachmentService.buildAttachmentsForDocumentDemand(rentOfferAttachment.getOfferDemandId(), attachments, place.getCode().getCode())
+                .forEach(rentOffer::addOfferAttachment);
+
+        return rentOfferRepository.save(rentOffer);
     }
 }

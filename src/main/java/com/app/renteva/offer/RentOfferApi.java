@@ -7,11 +7,8 @@ import com.app.renteva.shared.exceptions.ResourceNotFoundException;
 import io.swagger.annotations.Api;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -31,4 +28,9 @@ public interface RentOfferApi {
 
     @GetMapping("/place/{id}")
     ResponseEntity<List<RentOfferListResource>> getByPlace(@PathVariable("id") Long placeId);
+
+    @PostMapping("/{id}/attach/offer-document/{demandId}")
+    ResponseEntity<RentOfferListResource> attachOfferDocument(@PathVariable("id") Long rentOfferId,
+                                                              @PathVariable("demandId") Long demandId,
+                                                              @RequestParam("attachments") List<MultipartFile> attachments);
 }

@@ -1,5 +1,6 @@
 package com.app.renteva.offer.resource;
 
+import com.app.renteva.document.resource.DocumentAttachmentListResource;
 import com.app.renteva.place.resource.PlaceResource;
 import com.app.renteva.user.resource.UserResource;
 import lombok.AccessLevel;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -19,4 +21,5 @@ public class RentOfferListResource {
     String comments;
     PlaceResource place;
     UserResource renter;
+    List<DocumentAttachmentListResource> offerAttachments;
 }

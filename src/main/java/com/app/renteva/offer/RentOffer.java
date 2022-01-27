@@ -48,7 +48,6 @@ public class RentOffer {
         if (Objects.isNull(getOfferAttachments())) {
             this.offerAttachments = new HashSet<>();
         }
-        attachment.setRentOffer(this);
         this.offerAttachments.add(attachment);
     }
 }

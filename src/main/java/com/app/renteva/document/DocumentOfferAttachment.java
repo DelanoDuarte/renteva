@@ -1,7 +1,6 @@
 package com.app.renteva.document;
 
 import com.app.renteva.document.demand.DocumentOfferDemand;
-import com.app.renteva.offer.RentOffer;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -36,6 +35,10 @@ public class DocumentOfferAttachment {
     @JoinColumn
     DocumentOfferDemand documentOfferDemand;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    RentOffer rentOffer;
+    public DocumentOfferAttachment(String name, String description, String path, DocumentOfferDemand documentOfferDemand) {
+        this.name = name;
+        this.description = description;
+        this.path = path;
+        this.documentOfferDemand = documentOfferDemand;
+    }
 }
