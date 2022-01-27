@@ -1,15 +1,13 @@
 package com.app.renteva.place;
 
+import com.app.renteva.place.resource.AddDemandPlaceResource;
 import com.app.renteva.place.resource.NewPlaceResource;
+import com.app.renteva.place.resource.PlaceResource;
 import com.app.renteva.shared.exceptions.ResourceNotFoundException;
 import io.swagger.annotations.Api;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -26,4 +24,7 @@ public interface PlaceApi {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Place> create(@RequestBody @Valid NewPlaceResource placeResource);
+
+    @PostMapping(path = "/{id}/document-offer-demand/add", consumes = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<PlaceResource> addDocumentOfferDemands(@PathVariable Long id, @RequestBody @Valid AddDemandPlaceResource demandPlaceResource);
 }

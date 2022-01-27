@@ -1,6 +1,8 @@
 package com.app.renteva.place;
 
+import com.app.renteva.place.resource.AddDemandPlaceResource;
 import com.app.renteva.place.resource.NewPlaceResource;
+import com.app.renteva.place.resource.PlaceResource;
 import com.app.renteva.shared.exceptions.ResourceNotFoundException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +21,8 @@ import java.util.Optional;
 public class PlaceController implements PlaceApi {
 
     PlaceRepository placeRepository;
+
+    PlaceService placeService;
 
     @Override
     public List<Place> all() {
@@ -36,5 +41,14 @@ public class PlaceController implements PlaceApi {
         Place placeRequest = PlaceMapper.INSTANCE.toPlace(placeResource);
         Optional<Place> place = Optional.of(placeRepository.save(placeRequest));
         return place.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
+    }
+
+    @Override
+    public ResponseEntity<PlaceResource> addDocumentOfferDemands(Long id, @Valid AddDemandPlaceResource demandPlaceResource) {
+        final Optional<Place> place = Optional.of(placeService.addDocumentOfferDemands(id, demandPlaceResource));
+        return place
+                .map(PlaceMapper.INSTANCE::toPlaceResource)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
     }
 }

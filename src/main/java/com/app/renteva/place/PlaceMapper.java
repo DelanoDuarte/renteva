@@ -1,6 +1,7 @@
 package com.app.renteva.place;
 
 import com.app.renteva.address.AddressMapper;
+import com.app.renteva.document.demand.DocumentOfferDemandMapper;
 import com.app.renteva.place.resource.NewPlaceResource;
 import com.app.renteva.place.resource.PlaceResource;
 import org.mapstruct.Mapper;
@@ -9,7 +10,7 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.Objects;
 
-@Mapper(componentModel = "spring", uses = AddressMapper.class)
+@Mapper(componentModel = "spring", uses = {AddressMapper.class, DocumentOfferDemandMapper.class})
 public interface PlaceMapper {
 
     PlaceMapper INSTANCE = Mappers.getMapper(PlaceMapper.class);

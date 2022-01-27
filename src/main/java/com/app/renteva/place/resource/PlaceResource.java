@@ -1,5 +1,6 @@
 package com.app.renteva.place.resource;
 
+import com.app.renteva.document.demand.resource.DocumentOfferDemandResource;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,4 +28,6 @@ public class PlaceResource {
     Integer usefulAreaSize;
     boolean parking;
     List<PhotoResource> photos;
+    List<String> additionalDetails;
+    List<DocumentOfferDemandResource> documentOfferDemands;
 }
