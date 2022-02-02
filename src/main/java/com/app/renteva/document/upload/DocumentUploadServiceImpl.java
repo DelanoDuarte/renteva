@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class DocumentUploadServiceImpl implements DocumentUploadService {
+class DocumentUploadServiceImpl implements DocumentUploadService {
 
     Path placeRoot = Paths.get("uploads/places");
     Path root = Paths.get("offers/attachments");
