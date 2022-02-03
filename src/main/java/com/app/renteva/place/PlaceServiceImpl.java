@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
-class PlaceServiceImpl implements PlaceService {
+public class PlaceServiceImpl implements PlaceService {
 
     PlaceRepository placeRepository;
     DocumentOfferDemandRepository offerDemandRepository;

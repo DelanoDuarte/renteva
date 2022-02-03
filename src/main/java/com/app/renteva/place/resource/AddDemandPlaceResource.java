@@ -1,14 +1,14 @@
 package com.app.renteva.place.resource;
 
 import com.app.renteva.document.demand.resource.DocumentOfferDemandResource;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AddDemandPlaceResource {

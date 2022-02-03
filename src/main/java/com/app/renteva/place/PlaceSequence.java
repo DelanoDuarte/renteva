@@ -1,7 +1,9 @@
 package com.app.renteva.place;
 
 import com.app.renteva.shared.persistence.StringPrefixedSequenceIdGenerator;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.id.enhanced.SequenceStyleGenerator;
@@ -13,6 +15,8 @@ import javax.persistence.Id;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PlaceSequence {
 
     @Id

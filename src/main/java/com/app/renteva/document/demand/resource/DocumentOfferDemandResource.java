@@ -1,11 +1,13 @@
 package com.app.renteva.document.demand.resource;
 
-import lombok.AccessLevel;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.validation.constraints.NotNull;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class DocumentOfferDemandResource {
